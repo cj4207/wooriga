@@ -11,3 +11,10 @@ section {
   position: relative;
   height: 100%;
 }
+
+.map-tools {
+  position: absolute;
+  right: 20px;
+  bottom: 35px;
+  z-index: 1;
+}
