@@ -1,7 +1,8 @@
+import axios from "axios";
 import React, { useEffect, useRef } from "react";
 
 class CustomOverlay {
-  constructor(map, position) {
+  constructor(map, position, districtNm) {
     const { naver } = window;
 
     this.overlay = new naver.maps.OverlayView();
@@ -12,7 +13,7 @@ class CustomOverlay {
     this.element = document.createElement("div");
     this.element.style =
       "position:absolute;left:0;top:0;width:120px;height:30px;line-height:30px;text-align:center;background-color:#fff;border:2px solid #f00;";
-    this.element.innerHTML = "커스텀오버레이";
+    this.element.innerHTML = districtNm;
 
     this.setPosition(position);
     this.setMap(map || null);
@@ -66,17 +67,27 @@ function App() {
     const mapPosition = new naver.maps.LatLng(37.3849483, 127.1229117);
     const map = new naver.maps.Map(mapElement.current, {
       center: mapPosition,
-      zoom: 19,
+      zoom: 8
     });
 
-    overlay.current = new CustomOverlay(map, mapPosition);
-
-    naver.maps.Event.addListener(map, "click", function (e) {
-      overlay.current.setPosition(e.coord);
-    });
+    const ne = map.getBounds()._ne
+    const sw = map.getBounds()._sw
+    axios.post("https://dev-api.wooriga.kr/api/web/bizZone/list/district",{
+        level: 1,
+        neLat: ne._lat,
+        neLng: ne._lng,
+        swLat: sw._lat,
+        swLng: sw._lng
+      })
+      .then((res)=>{
+        for(const data of res.data){
+          const mapPosition = new naver.maps.LatLng(data.latitude, data.longitude);
+          overlay.current = new CustomOverlay(map, mapPosition, data.districtNm);
+        }
+      })
   }, []);
 
-  return <div ref={mapElement} style={{ minHeight: "400px" }} />;
+  return <div ref={mapElement} style={{ minHeight: "1080px" }} />;
 }
 
 export default App;
