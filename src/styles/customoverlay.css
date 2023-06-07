@@ -16,6 +16,7 @@
 .marker:hover {
   animation-name: bounce;
   cursor: pointer;
+  z-index: 100;
 }
 
 .marker > .title {
