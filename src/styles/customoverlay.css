@@ -1,0 +1,57 @@
+.marker {
+  width: 104px;
+  position:absolute;
+  overflow:visible;
+  left:0;
+  top:0;
+  background-color:#fff;
+  border:2px solid #505050;
+  border-radius: 5%;
+  text-align:center;
+  animation-duration: 1s;
+  animation-fill-mode: both;
+  animation-timing-function: ease-in-out;
+}
+
+.marker:hover {
+  animation-name: bounce;
+  cursor: pointer;
+}
+
+.marker > .title {
+  font-size: 14px;
+  font-weight: 700;
+  padding: 5px;
+  background-color: #505050;
+  color: #fff;
+}
+
+.list_item {
+  font-size: 0.75em;
+  padding: 5px;
+  list-style-type: none;
+}
+
+.list_item:not(:last-child){
+  font-weight: 400;
+  border-bottom: 2px solid #505050;
+}
+
+@keyframes bounce {
+  0%, 100%, 20%, 50%, 80% {
+    -webkit-transform: translateY(0);
+    -ms-transform: translateY(0);
+    transform: translateY(0);
+}
+
+40% {
+    -webkit-transform: translateY(-10px);
+    -ms-transform: translateY(-10px);
+    transform: translateY(-10px);
+}
+60% {
+    -webkit-transform: translateY(-5px);
+    -ms-transform: translateY(-5px);
+    transform: translateY(-5px);
+}
+}

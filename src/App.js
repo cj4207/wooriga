@@ -1,64 +1,12 @@
 import axios from "axios";
-import React, { useEffect, useRef } from "react";
-
-class CustomOverlay {
-  constructor(map, position, districtNm) {
-    const { naver } = window;
-
-    this.overlay = new naver.maps.OverlayView();
-    this.overlay.onAdd = this.onAdd;
-    this.overlay.draw = this.draw;
-    this.overlay.onRemove = this.onRemove;
-
-    this.element = document.createElement("div");
-    this.element.style =
-      "position:absolute;left:0;top:0;width:120px;height:30px;line-height:30px;text-align:center;background-color:#fff;border:2px solid #f00;";
-    this.element.innerHTML = districtNm;
-
-    this.setPosition(position);
-    this.setMap(map || null);
-  }
-
-  onAdd = () => {
-    var overlayLayer = this.overlay.getPanes().overlayLayer;
-    overlayLayer.appendChild(this.element);
-  };
-
-  draw = () => {
-    if (!this.overlay.getMap()) {
-      return;
-    }
-
-    var projection = this.overlay.getProjection(),
-      position = this.getPosition();
-
-    var pixelPosition = projection.fromCoordToOffset(position);
-
-    this.element.style.left = `${pixelPosition.x}px`;
-    this.element.style.top = `${pixelPosition.y}px`;
-  };
-
-  onRemove = () => {
-    this.element.remove();
-  };
-
-  setPosition = (position) => {
-    this._position = position;
-    this.draw();
-  };
-
-  getPosition = () => {
-    return this._position;
-  };
-
-  setMap = (map) => {
-    this.overlay.setMap(map);
-  };
-}
+import React, { useEffect, useRef, useState } from "react";
+import Customoverlay from "./components/Customoverlay";
+import "./App.css"
 
 function App() {
   const mapElement = useRef();
-  const overlay = useRef();
+  const [data, setData] = useState(null)
+  const [naverMap, setNaverMap] = useState(null)
 
   useEffect(() => {
     const { naver } = window;
@@ -69,7 +17,7 @@ function App() {
       center: mapPosition,
       zoom: 8
     });
-
+    setNaverMap(map)
     const ne = map.getBounds()._ne
     const sw = map.getBounds()._sw
     axios.post("https://dev-api.wooriga.kr/api/web/bizZone/list/district",{
@@ -80,14 +28,18 @@ function App() {
         swLng: sw._lng
       })
       .then((res)=>{
-        for(const data of res.data){
-          const mapPosition = new naver.maps.LatLng(data.latitude, data.longitude);
-          overlay.current = new CustomOverlay(map, mapPosition, data.districtNm);
-        }
+        setData(res.data)
       })
   }, []);
 
-  return <div ref={mapElement} style={{ minHeight: "1080px" }} />;
+  return <>
+    <div ref={mapElement} style={{ minHeight: "1080px" }} />;
+    {data &&
+      data.map((districtData)=>
+        <Customoverlay map={naverMap} data={districtData} />
+      )
+    }
+  </>
 }
 
 export default App;
