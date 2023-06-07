@@ -38,21 +38,50 @@
   border-bottom: 2px solid #505050;
 }
 
+.location {
+  position: absolute;
+  overflow: visible;
+  box-sizing: content-box !important;
+  cursor: inherit;
+  left: 960px;
+  top: 386px;
+}
+
+.location-div {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: rgb(239, 78, 86);
+  border: 3px solid rgb(255, 255, 255);
+  box-shadow: 0px 0px 4px 4px rgb(239, 78, 86), 0px 0px 20px 20px rgba(239, 78, 86, 0.31);
+  animation: glow-red 0.7s ease 0s infinite alternate none running;
+  cursor: pointer;
+}
+
 @keyframes bounce {
   0%, 100%, 20%, 50%, 80% {
     -webkit-transform: translateY(0);
     -ms-transform: translateY(0);
     transform: translateY(0);
+  }
+
+  40% {
+      -webkit-transform: translateY(-10px);
+      -ms-transform: translateY(-10px);
+      transform: translateY(-10px);
+  }
+  60% {
+      -webkit-transform: translateY(-5px);
+      -ms-transform: translateY(-5px);
+      transform: translateY(-5px);
+  }
 }
 
-40% {
-    -webkit-transform: translateY(-10px);
-    -ms-transform: translateY(-10px);
-    transform: translateY(-10px);
-}
-60% {
-    -webkit-transform: translateY(-5px);
-    -ms-transform: translateY(-5px);
-    transform: translateY(-5px);
-}
+@keyframes glow-red {
+  0% {
+    box-shadow: 0 0 6px -6px #ef4e564f;
+  }
+  100% {
+      box-shadow: 0 0 6px 6px #ef4e564f;
+  }
 }

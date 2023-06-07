@@ -1,8 +1,7 @@
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import "../styles/customButton.css"
-import Customoverlay from "./Customoverlay";
 
-export default function CustomButton({map, twoBtn, text, className}) {
+export default function CustomButton({map, twoBtn, text, className, setLocationData}) {
   const { naver } = window;
   const customBtnRef = useRef(null)
   const mapTypeBtnRef = useRef([])
@@ -41,8 +40,14 @@ export default function CustomButton({map, twoBtn, text, className}) {
   const myLocationControl = () => {
     function success(pos) {
       const crd = pos.coords;
-      console.log(crd)
-      return <Customoverlay map={map} data={crd} isLocation/>
+      const myPositon = new naver.maps.LatLng(crd.latitude, crd.longitude);
+      map.setCenter(myPositon)
+      map.setZoom(15, true)
+      setLocationData((prev)=>({
+        ...prev,
+        isOpen: true,
+        data: crd,
+      }))
     };
     
     function error(err) {

@@ -8,6 +8,7 @@ function NaverMap() {
   const mapElement = useRef();
   const [data, setData] = useState(null)
   const [naverMap, setNaverMap] = useState(null)
+  const [locationData, setLocationData] = useState({isOpen:false})
 
   useEffect(() => {
     const { naver } = window;
@@ -45,8 +46,12 @@ function NaverMap() {
                 <Customoverlay map={naverMap} data={districtData} />
               )
             }
+            {
+              locationData.isOpen &&
+                <Customoverlay map={naverMap} data={locationData.data} isLocation />
+            }
             <div className="map-tools">
-              <CustomButton map={naverMap} text={"내위치"} className={"btn-location"}/>
+              <CustomButton map={naverMap} text={"내위치"} className={"btn-location"} setLocationData={setLocationData}/>
               <CustomButton map={naverMap} text={"지적도"} className={"btn-type"}/>
               <CustomButton map={naverMap} text={["일반", "위성"]} twoBtn className={"map-type"}/>
               <CustomButton map={naverMap} twoBtn className={"btn-zoom"}/>
