@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import Customoverlay from "./Customoverlay";
+import "../styles/naverMap.css"
 
 function NaverMap() {
   const mapElement = useRef();
@@ -31,14 +32,18 @@ function NaverMap() {
       })
   }, []);
 
-  return <>
-    <div ref={mapElement} style={{ minHeight: "1080px" }} />;
-    {data &&
-      data.map((districtData)=>
-        <Customoverlay map={naverMap} data={districtData} />
-      )
-    }
-  </>
+  return(
+    <main>
+      <section>
+        <div ref={mapElement} className="map"/>
+        {data &&
+          data.map((districtData)=>
+            <Customoverlay map={naverMap} data={districtData} />
+          )
+        }
+      </section>
+    </main>
+  )
 }
 
 export default NaverMap;
