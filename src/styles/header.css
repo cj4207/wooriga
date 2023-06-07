@@ -1,0 +1,90 @@
+.header {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+}
+
+.hd {
+  position: relative;
+  height: 100px;
+  background: #ef4e56;
+}
+
+.inner {
+  display: flex;
+  justify-content: space-between;
+  height: 100px;
+  align-items: center;
+  margin: 0 auto;
+  max-width: 1280px;
+}
+
+.gnb {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-end;
+  height: 100%;
+  width: 600px;
+}
+
+.gnb > a {
+  position: relative;
+  height: 35px;
+  margin-right: 60px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #fff;
+}
+.gnb > a:hover {
+  cursor: pointer;
+}
+
+.gnb > a::after {
+  content: "";
+  display: block;
+  position: absolute;
+  left: calc(50% - 30px);
+  right: 0;
+  bottom: 0;
+  width: 0;
+  height: 4px;
+  margin: 0 auto;
+  border-radius: 2px;
+  box-sizing: border-box;
+  background: #fff;
+  transition: width .3s ease-out 0s,left .3s ease-out 0s;
+}
+
+.gnb > a:hover::after {
+  width: 100%;
+}
+
+.logo {
+  text-decoration: none;
+}
+
+.menu {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.menu > li {
+  position: relative;
+  margin-right: 25px;
+}
+
+.menu > li > button {
+  border: none;
+  background: none;
+  font-size: 14px;
+  font-weight: 400;
+  color: #fff;
+}
+
+.menu > li > button:hover {
+  cursor: pointer;
+}

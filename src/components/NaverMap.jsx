@@ -1,9 +1,8 @@
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
-import Customoverlay from "./components/Customoverlay";
-import "./App.css"
+import Customoverlay from "./Customoverlay";
 
-function App() {
+function NaverMap() {
   const mapElement = useRef();
   const [data, setData] = useState(null)
   const [naverMap, setNaverMap] = useState(null)
@@ -42,4 +41,4 @@ function App() {
   </>
 }
 
-export default App;
+export default NaverMap;
